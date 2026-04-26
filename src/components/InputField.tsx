@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { KeyboardTypeOptions, Text, TextInput, View } from 'react-native';
 
 interface InputFieldProps {
@@ -18,21 +19,27 @@ export const InputField = ({
   keyboardType = 'default',
   multiline = false,
   editable = true,
-}: InputFieldProps) => (
-  <View className="mb-4">
-    <Text className="mb-2 text-sm font-semibold text-slate-700">{label}</Text>
-    <TextInput
-      value={value}
-      onChangeText={onChangeText}
-      placeholder={placeholder}
-      keyboardType={keyboardType}
-      editable={editable}
-      multiline={multiline}
-      textAlignVertical={multiline ? 'top' : 'center'}
-      className={`rounded-xl border border-slate-300 bg-white px-4 py-3 text-[15px] text-slate-900 ${
-        multiline ? 'min-h-[100px]' : ''
-      } ${editable ? '' : 'opacity-60'}`}
-      placeholderTextColor="#94a3b8"
-    />
-  </View>
-);
+}: InputFieldProps) => {
+  const [focused, setFocused] = useState(false);
+
+  return (
+    <View className="mb-4">
+      <Text className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-600">{label}</Text>
+      <TextInput
+        value={value}
+        onChangeText={onChangeText}
+        placeholder={placeholder}
+        keyboardType={keyboardType}
+        editable={editable}
+        multiline={multiline}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        textAlignVertical={multiline ? 'top' : 'center'}
+        className={`rounded-2xl border bg-white px-4 py-3 text-[15px] text-slate-900 ${
+          focused ? 'border-brand-600' : 'border-slate-300'
+        } ${multiline ? 'min-h-[100px]' : ''} ${editable ? '' : 'opacity-60'}`}
+        placeholderTextColor="#94a3b8"
+      />
+    </View>
+  );
+};

@@ -13,15 +13,15 @@ interface PrimaryButtonProps {
 }
 
 const variantClasses: Record<ButtonVariant, string> = {
-  primary: 'bg-brand-700',
-  secondary: 'bg-white border border-slate-300',
-  ghost: 'bg-slate-200',
+  primary: 'bg-brand-700 border border-brand-700',
+  secondary: 'bg-slate-50 border border-slate-300',
+  ghost: 'bg-soft border border-slate-200',
 };
 
 const textClasses: Record<ButtonVariant, string> = {
   primary: 'text-white',
-  secondary: 'text-slate-900',
-  ghost: 'text-slate-900',
+  secondary: 'text-slate-800',
+  ghost: 'text-slate-600',
 };
 
 export const PrimaryButton = ({
@@ -33,13 +33,21 @@ export const PrimaryButton = ({
   loading = false,
 }: PrimaryButtonProps) => {
   const isDisabled = disabled || loading;
+  const hasPrimaryShadow = variant === 'primary' && !isDisabled;
 
   return (
     <Pressable
       onPress={onPress}
       disabled={isDisabled}
-      className={`h-12 rounded-xl items-center justify-center px-4 ${variantClasses[variant]}`}
+      className={`min-h-[54px] rounded-2xl items-center justify-center px-4 ${variantClasses[variant]}`}
       style={({ pressed }) => [
+        hasPrimaryShadow && {
+          shadowColor: '#134e4a',
+          shadowOpacity: 0.2,
+          shadowRadius: 12,
+          shadowOffset: { width: 0, height: 8 },
+          elevation: 4,
+        },
         {
           opacity: isDisabled ? 0.5 : pressed ? 0.86 : 1,
           transform: [{ scale: pressed ? 0.98 : 1 }],
@@ -52,7 +60,7 @@ export const PrimaryButton = ({
         ) : (
           icon
         )}
-        <Text className={`text-[15px] font-semibold ${textClasses[variant]}`}>{label}</Text>
+        <Text className={`text-[15px] font-extrabold tracking-wide ${textClasses[variant]}`}>{label}</Text>
       </View>
     </Pressable>
   );

@@ -82,20 +82,26 @@ export const ScanReceiptScreen = ({ navigation }: ScanReceiptScreenProps) => {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-slate-100">
+    <SafeAreaView className="flex-1 bg-soft">
       <View className="flex-1 px-4 pt-4 pb-6">
-        <Text className="text-base font-semibold text-slate-800">1. Upload atau ambil foto</Text>
-        <Text className="mt-1 text-sm text-slate-500">
-          Sistem akan melakukan simulasi OCR dan menghasilkan data transaksi dummy.
-        </Text>
+        <View className="overflow-hidden rounded-3xl bg-slate-900 px-5 py-5">
+          <View className="absolute -right-10 -top-8 h-24 w-24 rounded-full bg-brand-700/40" />
+          <View className="absolute -left-8 -bottom-9 h-24 w-24 rounded-full bg-slate-700/60" />
+          <Text className="text-xs uppercase tracking-widest text-slate-300">Scan Struk</Text>
+          <Text className="mt-2 text-2xl font-extrabold text-white">Simulasi OCR</Text>
+          <Text className="mt-2 text-sm text-slate-300">
+            Ambil foto atau upload struk untuk membuat draft transaksi otomatis.
+          </Text>
+        </View>
 
         <View className="mt-4">
           {imageUri ? (
-            <Image source={{ uri: imageUri }} className="h-60 w-full rounded-2xl" resizeMode="cover" />
+            <Image source={{ uri: imageUri }} className="h-64 w-full rounded-3xl" resizeMode="cover" />
           ) : (
-            <View className="h-60 items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-slate-50">
-              <Ionicons name="receipt-outline" size={36} color="#64748b" />
-              <Text className="mt-2 text-sm text-slate-500">Belum ada gambar struk</Text>
+            <View className="h-64 items-center justify-center rounded-3xl border border-dashed border-slate-300 bg-slate-50">
+              <Ionicons name="receipt-outline" size={40} color="#64748b" />
+              <Text className="mt-3 text-sm font-semibold text-slate-600">Belum ada gambar struk</Text>
+              <Text className="mt-1 text-xs text-slate-500">Ambil foto atau upload dari galeri</Text>
             </View>
           )}
         </View>
@@ -121,6 +127,7 @@ export const ScanReceiptScreen = ({ navigation }: ScanReceiptScreenProps) => {
             onPress={handleSimulateScan}
             disabled={!imageUri}
             loading={processing}
+            icon={<Ionicons name="scan-outline" size={18} color="#ffffff" />}
           />
         </View>
       </View>

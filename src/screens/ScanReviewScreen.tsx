@@ -51,22 +51,27 @@ export const ScanReviewScreen = ({ route, navigation }: ScanReviewScreenProps) =
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-slate-100">
+    <SafeAreaView className="flex-1 bg-soft">
       <ScrollView
         className="flex-1"
         contentContainerStyle={{ padding: 16, paddingBottom: 30 }}
         showsVerticalScrollIndicator={false}
       >
-        <Text className="text-sm text-slate-500">Review hasil OCR simulasi</Text>
-        <Text className="mt-1 text-base font-semibold text-slate-800">
-          Tanggal: {formatDateLabel(new Date(draft.date))}
-        </Text>
+        <View className="overflow-hidden rounded-3xl bg-slate-900 px-5 py-5">
+          <View className="absolute -right-10 -top-8 h-24 w-24 rounded-full bg-brand-700/40" />
+          <View className="absolute -left-8 -bottom-9 h-24 w-24 rounded-full bg-slate-700/60" />
+          <Text className="text-xs uppercase tracking-widest text-slate-300">Review Scan</Text>
+          <Text className="mt-2 text-2xl font-extrabold text-white">Validasi Hasil OCR</Text>
+          <Text className="mt-2 text-sm text-slate-300">
+            Tanggal: {formatDateLabel(new Date(draft.date))} • Edit sebelum simpan
+          </Text>
+        </View>
 
         {imageUri ? (
-          <Image source={{ uri: imageUri }} className="mt-3 h-52 w-full rounded-2xl" resizeMode="cover" />
+          <Image source={{ uri: imageUri }} className="mt-4 h-56 w-full rounded-3xl" resizeMode="cover" />
         ) : null}
 
-        <View className="mt-4 rounded-2xl border border-slate-200 bg-white p-4">
+        <View className="mt-4 rounded-3xl border border-slate-200 bg-white p-4">
           <InputField
             label="Nominal"
             value={amount}
@@ -75,7 +80,9 @@ export const ScanReviewScreen = ({ route, navigation }: ScanReviewScreenProps) =
             editable={editable}
           />
 
-          <Text className="mb-2 text-sm font-semibold text-slate-700">Kategori</Text>
+          <Text className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-600">
+            Kategori
+          </Text>
           <CategorySelector
             categories={expenseCategories}
             selected={category}
@@ -87,7 +94,7 @@ export const ScanReviewScreen = ({ route, navigation }: ScanReviewScreenProps) =
             label="Catatan"
             value={note}
             onChangeText={setNote}
-            placeholder="Contoh: belanja harian"
+            placeholder="Contoh: Belanja harian"
             editable={editable}
             multiline
           />
@@ -96,13 +103,13 @@ export const ScanReviewScreen = ({ route, navigation }: ScanReviewScreenProps) =
         <View className="mt-4 flex-row gap-2">
           <View className="flex-1">
             <PrimaryButton
-              label={editable ? 'Selesai Edit' : 'Edit'}
+              label={editable ? 'Selesai Edit' : 'Edit Data'}
               variant="secondary"
               onPress={() => setEditable((value) => !value)}
             />
           </View>
           <View className="flex-1">
-            <PrimaryButton label="Simpan" onPress={handleSave} />
+            <PrimaryButton label="Simpan Hasil" onPress={handleSave} />
           </View>
         </View>
       </ScrollView>

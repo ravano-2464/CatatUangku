@@ -1,4 +1,4 @@
-# CatatUangku Mobile Prototype
+# 💸 CatatUangku Mobile Prototype
 
 [![Expo SDK](https://img.shields.io/badge/Expo-SDK%2054-1f2937?style=for-the-badge&logo=expo)](https://expo.dev/)
 [![React Native](https://img.shields.io/badge/React%20Native-0.81-0ea5e9?style=for-the-badge&logo=react)](https://reactnative.dev/)
@@ -6,45 +6,45 @@
 [![NativeWind](https://img.shields.io/badge/Styling-NativeWind-14b8a6?style=for-the-badge)](https://www.nativewind.dev/)
 [![Zustand](https://img.shields.io/badge/State-Zustand-f97316?style=for-the-badge)](https://zustand-demo.pmnd.rs/)
 
-Prototype aplikasi mobile frontend untuk pencatatan keuangan pribadi dengan fokus pada:
-- kecepatan input transaksi
-- simulasi scan struk
-- clarity data untuk testing user langsung
+A mobile frontend prototype for personal finance tracking, focused on:
+- fast transaction input
+- receipt scan simulation
+- clear financial data for direct user testing
 
-## Ringkasan MVP
+## 🎯 MVP Overview
 
-Fitur utama yang sudah tersedia:
-- Dashboard: total saldo, pemasukan, pengeluaran, sisa budget
-- Tambah transaksi:
-1. Input manual
-2. Scan struk (simulasi OCR)
-- Review hasil scan: nominal, kategori, catatan bisa diedit sebelum simpan
-- Laporan keuangan: filter harian/mingguan/bulanan + visualisasi sederhana
-- Atur budget: limit pengeluaran, budget terpakai, sisa budget
-- Simulation support:
+Main features currently implemented:
+- Dashboard: total balance, total income, total expenses, remaining budget
+- Add Transaction:
+1. Manual input
+2. Receipt scan (OCR simulation)
+- Scan Review: editable amount, category, and notes before saving
+- Financial Reports: daily/weekly/monthly filters + simple visualizations
+- Budget Setup: spending limit, used budget, and remaining budget
+- Testing Simulation Support:
 1. Dummy data generator
 2. Save feedback (toast/alert)
-3. Logging frekuensi fitur dan total transaksi ditambahkan
+3. Feature usage logging and total transaction-add count
 
-## User Flow Testing
+## 🧪 User Testing Flow
 
-Flow utama untuk validasi user:
-1. Buka tab `Tambah`
-2. Pilih `Input Manual` atau `Scan Struk`
-3. Simpan transaksi
-4. Kembali ke `Dashboard` untuk melihat update data
-5. Cek `Laporan` dan `Budget` untuk evaluasi insight
+Primary validation flow:
+1. Open the `Add` tab
+2. Choose `Manual Input` or `Scan Receipt`
+3. Save the transaction
+4. Return to `Dashboard` to confirm updates
+5. Check `Reports` and `Budget` for behavior and clarity
 
-## Tech Stack
+## 🧰 Tech Stack
 
 - Framework: React Native (Expo)
 - Language: TypeScript (strict mode)
 - Styling: Tailwind via NativeWind
 - State Management: Zustand
 - Navigation: React Navigation (Stack + Bottom Tabs)
-- Utility: Image Picker, Date Picker, Haptics
+- Utilities: Image Picker, Date Picker, Haptics
 
-## Struktur Project
+## 🗂️ Project Structure
 
 ```txt
 .
@@ -63,26 +63,26 @@ Flow utama untuk validasi user:
 └── assets
 ```
 
-## Menjalankan Aplikasi
+## 🚀 Getting Started
 
-Prerequisite:
-- Node.js LTS
+### 🔧 Prerequisites
+- Node.js (LTS recommended)
 - npm
-- Expo Go (Android/iOS) atau emulator
+- Expo Go (Android/iOS) or emulator
 
-Install dependency:
+### 📦 Install Dependencies
 
 ```bash
 npm install
 ```
 
-Run development server:
+### ▶️ Run Development Server
 
 ```bash
 npm run start
 ```
 
-Shortcut platform:
+### 📱 Platform Shortcuts
 
 ```bash
 npm run android
@@ -90,22 +90,22 @@ npm run ios
 npm run web
 ```
 
-## Scripts
+## 📜 Scripts
 
-- `npm run start` menjalankan Expo dev server
-- `npm run android` membuka ke Android
-- `npm run ios` membuka ke iOS
-- `npm run web` membuka ke web
+- `npm run start`: starts Expo dev server
+- `npm run android`: runs the app on Android
+- `npm run ios`: runs the app on iOS
+- `npm run web`: runs the app on web
 
-## Catatan Implementasi
+## 🧠 Implementation Notes
 
-- Tidak menggunakan backend real (sesuai scope prototype testing).
-- Scan struk menggunakan generator dummy OCR di local state.
-- Data transaksi, budget, dan analytics disimpan di store Zustand (in-memory).
+- No real backend is used (aligned with prototype testing scope).
+- Receipt scan uses local dummy OCR generation.
+- Transactions, budget, and analytics are stored in Zustand (in-memory).
 
-## Status
+## ✅ Status
 
-Prototype siap dipakai untuk:
-- usability testing awal
-- validasi fitur scan struk
-- validasi alur pencatatan transaksi cepat
+This prototype is ready for:
+- early usability testing
+- validating the receipt-scan experience
+- validating fast transaction logging flow

@@ -61,7 +61,7 @@ export const ManualInputScreen = ({ navigation }: ManualInputScreenProps) => {
     const parsedAmount = Number(amount);
 
     if (!parsedAmount || parsedAmount <= 0) {
-      showFeedback('Nominal wajib lebih dari 0.');
+      showFeedback('Nominal harus lebih dari 0.');
       return;
     }
 
@@ -85,68 +85,87 @@ export const ManualInputScreen = ({ navigation }: ManualInputScreenProps) => {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-slate-100">
+    <SafeAreaView className="flex-1 bg-soft">
       <ScrollView
         className="flex-1"
-        contentContainerStyle={{ padding: 16, paddingBottom: 28 }}
+        contentContainerStyle={{ padding: 16, paddingBottom: 40 }}
         showsVerticalScrollIndicator={false}
       >
-        <Text className="text-sm font-semibold text-slate-800">Jenis Transaksi</Text>
-        <View className="mt-2 mb-4 flex-row rounded-xl bg-slate-200 p-1">
-          {(['expense', 'income'] as TransactionType[]).map((value) => {
-            const active = value === type;
-            return (
-              <Pressable
-                key={value}
-                onPress={() => handleTypeChange(value)}
-                className={`flex-1 rounded-lg py-2 ${active ? 'bg-white' : ''}`}
-              >
-                <Text
-                  className={`text-center text-sm font-semibold ${
-                    active ? 'text-slate-900' : 'text-slate-500'
-                  }`}
+        <View className="overflow-hidden rounded-3xl bg-slate-900 px-5 py-5">
+          <View className="absolute -right-10 -top-8 h-24 w-24 rounded-full bg-brand-700/40" />
+          <View className="absolute -left-8 -bottom-9 h-24 w-24 rounded-full bg-slate-700/60" />
+          <Text className="text-xs uppercase tracking-widest text-slate-300">Input Manual</Text>
+          <Text className="mt-2 text-2xl font-extrabold text-white">Catat Transaksi</Text>
+          <Text className="mt-2 text-sm text-slate-300">
+            Isi detail transaksi, lalu simpan langsung ke dashboard.
+          </Text>
+        </View>
+
+        <View className="mt-4 rounded-3xl border border-slate-200 bg-white p-4">
+          <Text className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-600">
+            Jenis Transaksi
+          </Text>
+          <View className="mt-1 mb-4 flex-row rounded-2xl bg-slate-200 p-1">
+            {(['expense', 'income'] as TransactionType[]).map((value) => {
+              const active = value === type;
+
+              return (
+                <Pressable
+                  key={value}
+                  onPress={() => handleTypeChange(value)}
+                  className={`flex-1 rounded-xl py-2.5 ${active ? 'bg-white' : ''}`}
                 >
-                  {value === 'expense' ? 'Pengeluaran' : 'Pemasukan'}
-                </Text>
-              </Pressable>
-            );
-          })}
-        </View>
+                  <Text
+                    className={`text-center text-sm font-semibold ${
+                      active ? 'text-slate-900' : 'text-slate-500'
+                    }`}
+                  >
+                    {value === 'expense' ? 'Pengeluaran' : 'Pemasukan'}
+                  </Text>
+                </Pressable>
+              );
+            })}
+          </View>
 
-        <InputField
-          label="Nominal"
-          value={amount}
-          onChangeText={(value) => setAmount(cleanNumberInput(value))}
-          placeholder="Contoh: 150000"
-          keyboardType="number-pad"
-        />
-
-        <Text className="mb-2 text-sm font-semibold text-slate-700">Kategori</Text>
-        <CategorySelector selected={category} categories={categories} onSelect={setCategory} />
-
-        <Text className="mb-2 text-sm font-semibold text-slate-700">Tanggal</Text>
-        <PrimaryButton
-          label={formatDateLabel(date)}
-          variant="secondary"
-          onPress={() => setShowDatePicker(true)}
-        />
-
-        {showDatePicker && (
-          <DateTimePicker value={date} mode="date" display="default" onChange={onDateChange} />
-        )}
-
-        <View className="mt-4">
           <InputField
-            label="Catatan"
-            value={note}
-            onChangeText={setNote}
-            placeholder="Tambahkan catatan transaksi"
-            multiline
+            label="Nominal"
+            value={amount}
+            onChangeText={(value) => setAmount(cleanNumberInput(value))}
+            placeholder="Contoh: 150000"
+            keyboardType="number-pad"
           />
-        </View>
 
-        <View className="mt-3">
-          <PrimaryButton label="Simpan Transaksi" onPress={handleSave} />
+          <Text className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-600">
+            Kategori
+          </Text>
+          <CategorySelector selected={category} categories={categories} onSelect={setCategory} />
+
+          <Text className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-600">
+            Tanggal Transaksi
+          </Text>
+          <PrimaryButton
+            label={formatDateLabel(date)}
+            variant="secondary"
+            onPress={() => setShowDatePicker(true)}
+          />
+
+          {showDatePicker && (
+            <DateTimePicker value={date} mode="date" display="default" onChange={onDateChange} />
+          )}
+
+          <View className="mt-4">
+            <InputField
+              label="Catatan"
+              value={note}
+              onChangeText={setNote}
+              placeholder="Contoh: Belanja mingguan"
+              multiline
+            />
+          </View>
+
+          <View className="mt-1">
+            <PrimaryButton label="Simpan Transaksi" onPress={handleSave} />
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>

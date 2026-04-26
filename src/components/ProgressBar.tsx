@@ -19,11 +19,11 @@ export const ProgressBar = ({
     <View>
       {(label || percentageLabel) && (
         <View className="mb-2 flex-row items-center justify-between">
-          <Text className="text-sm text-slate-500">{label}</Text>
-          <Text className="text-sm font-semibold text-slate-700">{percentageLabel}</Text>
+          <Text className="text-xs font-medium text-slate-500">{label}</Text>
+          <Text className="text-xs font-bold text-slate-700">{percentageLabel}</Text>
         </View>
       )}
-      <View className="h-2.5 rounded-full bg-slate-200">
+      <View className="h-2.5 overflow-hidden rounded-full bg-slate-200">
         <View
           className="h-2.5 rounded-full"
           style={{ width: `${safeProgress * 100}%`, backgroundColor: fillColor }}

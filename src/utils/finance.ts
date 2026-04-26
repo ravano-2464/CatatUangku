@@ -135,11 +135,12 @@ export const getTrendData = (transactions: Transaction[], filter: ReportFilter) 
   }
 
   if (filter === 'weekly') {
-    const labels = ['M1', 'S2', 'S3', 'R4', 'K5', 'J6', 'S7'];
-
-    return labels.map((label, index) => {
+    return Array.from({ length: 7 }, (_, index) => {
       const targetDate = new Date();
       targetDate.setDate(targetDate.getDate() - (6 - index));
+      const label = new Intl.DateTimeFormat('id-ID', { weekday: 'short' })
+        .format(targetDate)
+        .replace('.', '');
 
       const value = expenses
         .filter((transaction) => isSameDay(new Date(transaction.date), targetDate))

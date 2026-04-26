@@ -1,5 +1,6 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { useFocusEffect } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
 import { useCallback, useMemo, useState } from 'react';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -51,18 +52,31 @@ export const BudgetScreen = (_: BudgetScreenProps) => {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-slate-100" edges={['top']}>
+    <SafeAreaView className="flex-1 bg-soft" edges={['top']}>
       <ScrollView
         className="flex-1"
-        contentContainerStyle={{ padding: 16, paddingBottom: 26 }}
+        contentContainerStyle={{ padding: 16, paddingBottom: 112 }}
         showsVerticalScrollIndicator={false}
       >
-        <Text className="text-2xl font-bold text-slate-900">Atur Budget</Text>
-        <Text className="mt-1 text-sm text-slate-500">
-          Tentukan limit bulanan agar pengeluaran tetap terkontrol.
-        </Text>
+        <View className="overflow-hidden rounded-3xl bg-brand-700 px-5 py-5">
+          <View className="absolute -right-8 -top-10 h-24 w-24 rounded-full bg-brand-600/70" />
+          <View className="absolute -left-8 -bottom-11 h-24 w-24 rounded-full bg-brand-800/70" />
+          <Text className="text-xs uppercase tracking-widest text-cyan-100">Perencana Budget</Text>
+          <Text className="mt-2 text-2xl font-extrabold text-white">Kontrol Pengeluaran Bulanan</Text>
+          <Text className="mt-2 text-sm text-cyan-100">
+            Atur batas budget agar pengeluaran tetap aman setiap bulan.
+          </Text>
 
-        <View className="mt-5 rounded-2xl border border-slate-200 bg-white p-4">
+          <View className="mt-4 rounded-2xl bg-white/12 px-4 py-3">
+            <View className="flex-row items-center justify-between">
+              <Text className="text-xs uppercase tracking-wide text-cyan-100">Limit saat ini</Text>
+              <Ionicons name="shield-checkmark-outline" size={18} color="#ccfbf1" />
+            </View>
+            <Text className="mt-1 text-xl font-bold text-white">{formatCurrency(budgetLimit)}</Text>
+          </View>
+        </View>
+
+        <View className="mt-4 rounded-3xl border border-slate-200 bg-white p-4">
           <InputField
             label="Limit Budget Bulanan"
             value={budgetInput}
@@ -71,26 +85,38 @@ export const BudgetScreen = (_: BudgetScreenProps) => {
             placeholder="Contoh: 2500000"
           />
 
-          <Text className="mb-2 text-sm font-semibold text-slate-700">Preset Cepat</Text>
-          <View className="mb-4 flex-row gap-2">
-            {budgetPresets.map((preset) => (
-              <Pressable
-                key={preset}
-                onPress={() => setBudgetInput(String(preset))}
-                className="rounded-full border border-slate-300 bg-slate-50 px-4 py-2"
-              >
-                <Text className="text-xs font-semibold text-slate-700">
-                  {formatCurrency(preset)}
-                </Text>
-              </Pressable>
-            ))}
+          <Text className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-600">
+            Preset Cepat
+          </Text>
+          <View className="mb-4 flex-row flex-wrap gap-2">
+            {budgetPresets.map((preset) => {
+              const active = Number(budgetInput) === preset;
+
+              return (
+                <Pressable
+                  key={preset}
+                  onPress={() => setBudgetInput(String(preset))}
+                  className={`rounded-full border px-4 py-2.5 ${
+                    active ? 'border-brand-700 bg-brand-700' : 'border-slate-300 bg-slate-50'
+                  }`}
+                >
+                  <Text
+                    className={`text-xs font-semibold ${
+                      active ? 'text-white' : 'text-slate-700'
+                    }`}
+                  >
+                    {formatCurrency(preset)}
+                  </Text>
+                </Pressable>
+              );
+            })}
           </View>
 
           <PrimaryButton label="Simpan Budget" onPress={handleSave} />
         </View>
 
-        <View className="mt-4 rounded-2xl border border-slate-200 bg-white p-4">
-          <Text className="text-sm font-semibold text-slate-700">Status Budget Bulanan</Text>
+        <View className="mt-4 rounded-3xl border border-slate-200 bg-white p-4">
+          <Text className="text-sm font-bold text-slate-700">Status Budget Bulanan</Text>
           <Text className="mt-3 text-sm text-slate-600">
             Budget terpakai: {formatCurrency(summary.budgetUsed)}
           </Text>
